@@ -17,7 +17,7 @@ class PlanController extends Controller
 
     public function index()
     {
-        $plans = $this->repository->latest()->paginate();
+        $plans = $this->repository->latest()->paginate(5);
 
         return view('admin.pages.plans.index', ['plans' =>  $plans]);
     }
@@ -31,6 +31,28 @@ class PlanController extends Controller
         $data['url'] = Str::kebab($request->name);
         $this->repository->create($data);
         
+        return redirect()->route('plans.index');
+    }
+    public function show ($url)
+    {
+        $plan = $this->repository->where('url', $url)->first();
+
+        if (!$plan)
+            return redirect()->back();
+
+        return view('admin.pages.plans.show', [
+            'plan'  =>  $plan
+        ]);
+    }
+    public function destroy($url)
+    {
+        $plan = $this->repository->where('url', $url)->first();
+
+        if(!$plan)
+            return redirect()->back();
+        
+        $plan->delete();
+
         return redirect()->route('plans.index');
     }
 }

@@ -12,6 +12,8 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::delete('admin/plans/{url}' ,[App\Http\Controllers\Admin\PlanController::class, 'destroy'])->name('plans.destroy');
+Route::get('admin/plans/{url}' ,[App\Http\Controllers\Admin\PlanController::class, 'show'])->name('plans.show');
 Route::get('admin/plans' ,[App\Http\Controllers\Admin\PlanController::class, 'index'])->name('plans.index');
 Route::get('admin/plans/create' ,[App\Http\Controllers\Admin\PlanController::class, 'create'])->name('plans.create');
 Route::post('admin/plans' ,[App\Http\Controllers\Admin\PlanController::class, 'store'])->name('plans.store');
