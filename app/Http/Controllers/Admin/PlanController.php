@@ -17,7 +17,7 @@ class PlanController extends Controller
 
     public function index()
     {
-        $plans = $this->repository->latest()->paginate(5);
+        $plans = $this->repository->latest()->paginate();
 
         return view('admin.pages.plans.index', ['plans' =>  $plans]);
     }
@@ -54,5 +54,18 @@ class PlanController extends Controller
         $plan->delete();
 
         return redirect()->route('plans.index');
+    }
+    public function search(Request $request)
+    {
+        
+        $filters = $request->except('_token');
+        
+        $plans = $this->repository->search($request->filter);
+        // dd($plans);
+        
+        return view('admin.pages.plans.index', [
+            'plans' => $plans,
+            'filters' => $filters,
+        ]);
     }
 }
