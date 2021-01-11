@@ -4,6 +4,11 @@
 
 @section('content_header')
     <h1>Planos <a href="{{route('plans.create')}}" class="btn btn-dark">ADD</a></h1>
+
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{{ route('admin.index')}}">Dashboard</a></li>
+        <li class="breadcrumb-item"><a href="{{ route('plans.index')}}">Planos</a></li>
+    </ol>
 @stop
 
 @section('content')
@@ -34,7 +39,8 @@
                             <td>
                                 R$ {{ number_format($plan->price, 2, ',','.') }}
                             </td>
-                            <td style="width=10px;">
+                            <td style="width=100px;">
+                                <a href="{{ route('plans.edit', $plan->url) }}" class="btn btn-info">EDITAR</a>
                                 <a href="{{ route('plans.show', $plan->url) }}" class="btn btn-warning">VER</a>
                             </td>
                         </tr>
